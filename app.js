@@ -1,5 +1,5 @@
-const inquirer = require("inquirer");
 const fs = require('fs');
+const inquirer = require("inquirer");
 const generatePage = require('./src/page-template');
 
 // const pageHTML = generatePage(name, github);
@@ -9,7 +9,7 @@ const generatePage = require('./src/page-template');
 
 //   console.log('Portfolio complete! Check out index.html to see the output!');
 // });
-promptUser = () => {
+const promptUser = () => {
   return inquirer
     .prompt([
       {
@@ -29,8 +29,8 @@ promptUser = () => {
         type: 'input',
         name: 'github',
         message: 'Enter your GitHub Username',
-        validate: nameInput => {
-          if (nameInput) {
+        validate: githubInput => {
+          if (githubInput) {
             return true;
           } else {
             console.log('Please enter your Github username!');
@@ -88,8 +88,8 @@ Add a New Project
       type: 'input',
       name: 'description',
       message: 'Provide a description of the project (Required)',
-      validate: nameInput => {
-        if (nameInput) {
+      validate: descriptionInput => {
+        if (descriptionInput) {
           return true;
         } else {
           console.log('Please enter a Project Description');
@@ -107,8 +107,8 @@ Add a New Project
       type: 'input',
       name: 'link',
       message: 'Enter the GitHub link to your project link.',
-      validate: nameInput => {
-        if (nameInput) {
+      validate: linkInput => {
+        if (linkInput) {
           return true;
         } else {
           console.log('Please enter the GitHub link to your project link.');
@@ -143,6 +143,7 @@ promptUser()
   .then(portfolioData => {
     console.log(portfolioData)
     const pageHTML = generatePage(portfolioData);
+    console.log(pageHTML);
 
     fs.writeFile('./index.html', pageHTML, err => {
       if (err) throw new Error(err);
